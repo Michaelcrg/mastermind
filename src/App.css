@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+body {
+  background: linear-gradient(to bottom, #3e1f0d, #5a2e16, #7b3f1b);
+}
+
+.my-glow {
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.87);
+}
