@@ -4,9 +4,10 @@ import "./App.css";
 import { Board } from "./components/Board.jsx";
 
 function App() {
-  const combinationLength = 10;
-  const maxAttempts = 15;
+  const combinationLength = 4;
+  const maxAttempts = 3;
   const [isWinner, setIsWinner] = useState(false);
+
   const handleWin = () => {
     setIsWinner(true);
   };

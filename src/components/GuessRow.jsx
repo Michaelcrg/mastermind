@@ -1,7 +1,10 @@
 import { ColorCircle } from "./ColorCircle";
 
 export function GuessRow({ id, combinationLength, colors }) {
-  const colorsToShow = colors ?? Array(combinationLength).fill(null);
+  const colorsToShow =
+    !colors || colors.length !== combinationLength
+      ? Array(combinationLength).fill(null)
+      : colors;
 
   return (
     <div
