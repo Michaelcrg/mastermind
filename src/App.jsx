@@ -4,7 +4,7 @@ import "./App.css";
 import { Board } from "./components/Board.jsx";
 
 function App() {
-  const combinationLength = 4;
+  const combinationLength = 3;
   const maxAttempts = 3;
   const [isWinner, setIsWinner] = useState(false);
 

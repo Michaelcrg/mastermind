@@ -30,6 +30,13 @@ export function GuessContainer({
             attemptIndex={index}
             combinationLength={combinationLength}
             colors={rowColors ?? Array(combinationLength).fill(null)}
+            setPegs={() => setPegs(guesses[index], index)}
+            checkBlack={
+              checkBlack[index] ?? Array(combinationLength).fill(false)
+            }
+            checkWhite={
+              checkWhite[index] ?? Array(combinationLength).fill(false)
+            }
           />
         </div>
       ))}
