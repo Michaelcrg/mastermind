@@ -1,10 +1,9 @@
 import { ResetButton } from "./ResetButton";
-import { StartButton } from "./StartButton";
 
-export function ButtonContainer() {
+export function ButtonContainer({ reset }) {
   return (
     <div className="mt-5 flex justify-evenly items-evenly  absolute bottom-2 w-[100%] h-[30%]">
-      <ResetButton />
+      <ResetButton reset={reset} />
     </div>
   );
 }

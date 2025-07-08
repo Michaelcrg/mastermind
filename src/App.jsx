@@ -4,20 +4,12 @@ import "./App.css";
 import { Board } from "./components/Board.jsx";
 
 function App() {
-  const combinationLength = 3;
-  const maxAttempts = 3;
-  const [isWinner, setIsWinner] = useState(false);
+  const combinationLength = 8;
+  const maxAttempts = 8;
 
-  const handleWin = () => {
-    setIsWinner(true);
-  };
   return (
     <div className="flex  items-center justify-center min-h-screen min-w-screen ">
-      <Board
-        combinationLength={combinationLength}
-        maxAttempts={maxAttempts}
-        isWinner={isWinner}
-      />
+      <Board combinationLength={combinationLength} maxAttempts={maxAttempts} />
     </div>
   );
 }

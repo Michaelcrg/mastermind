@@ -3,7 +3,6 @@ import { ColorPicker } from "./ColorPicker.jsx";
 import { MasterCombination } from "./MasterCombination.jsx";
 import { GuessContainer } from "./GuessContainer.jsx";
 import { useState, useEffect, useCallback } from "react";
-import { GuessChecker } from "./GuessChecker.jsx";
 
 export function Board({ combinationLength, maxAttempts }) {
   const [rowIndex, setRowIndex] = useState(maxAttempts - 1);
@@ -32,8 +31,11 @@ export function Board({ combinationLength, maxAttempts }) {
     Array(combinationLength).fill(null)
   );
 
+  const [isVisible, setIsVisible] = useState(true);
+
   const setPegs = useCallback(
     (currentGuess, rowIndex) => {
+      setCheckWhite(Array(combinationLength).fill(false));
       const copyBlack = checkBlack.map((row, idx) =>
         idx === rowIndex ? [...row] : row
       );
@@ -42,6 +44,7 @@ export function Board({ combinationLength, maxAttempts }) {
       );
 
       const copyPegs = [...usedPegs];
+
       const copyCombination = [...usedCombination];
 
       for (let i = 0; i < combinationLength; i++) {
@@ -54,27 +57,33 @@ export function Board({ combinationLength, maxAttempts }) {
 
       setCheckBlack(copyBlack);
       setUsedCombination(copyCombination);
+
       setUsedPegs(copyPegs);
       checkWin(copyBlack[rowIndex]);
 
       for (let i = 0; i < combinationLength; i++) {
-        if (copyPegs[i]) continue;
+        if (copyCombination[i] || copyPegs[i]) {
+          continue;
+        }
 
         for (let j = 0; j < combinationLength; j++) {
-          if (copyCombination[j]) continue;
+          if (copyBlack[rowIndex][j] || copyCombination[j]) continue;
 
           if (currentGuess[i] === masterCombination[j]) {
             copyWhite[rowIndex][i] = true;
+            copyPegs[i] = true;
+            copyCombination[j] = true;
 
-            copyCombination[i] = true;
             break;
+          } else {
+            copyWhite[rowIndex][i] = false;
           }
         }
       }
 
       setCheckWhite(copyWhite);
-      setUsedPegs(copyPegs);
-      setUsedCombination(copyCombination);
+      setUsedPegs(Array(combinationLength).fill(null));
+      setUsedCombination(Array(combinationLength).fill(null));
       checkWin(copyBlack[rowIndex]);
     },
     [
@@ -87,9 +96,34 @@ export function Board({ combinationLength, maxAttempts }) {
     ]
   );
 
+  const reset = () => {
+    console.log("reset");
+    setMasterCombination(generateRandomCombination());
+    setCheckBlack(
+      Array(maxAttempts)
+        .fill(null)
+        .map(() => Array(combinationLength).fill(false))
+    );
+    setCheckWhite(
+      Array(maxAttempts)
+        .fill(null)
+        .map(() => Array(combinationLength).fill(false))
+    );
+
+    setGuesses(
+      Array(maxAttempts)
+        .fill(null)
+        .map(() => Array(combinationLength).fill(null))
+    );
+    setRowIndex(maxAttempts - 1);
+    setColorIndex(0);
+    setUsedPegs(Array(combinationLength).fill(null));
+    setUsedCombination(Array(combinationLength).fill(null));
+  };
+
   const checkWin = (blackPegs) => {
     if (blackPegs.every((peg) => peg === true)) {
-      alert("victory");
+      setIsVisible(false);
     }
   };
 
@@ -115,24 +149,24 @@ export function Board({ combinationLength, maxAttempts }) {
     }
   };
 
+  const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+
+  const generateRandomCombination = () => {
+    const randomColors = [];
+    for (let i = 0; i < combinationLength; i++) {
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      randomColors.push(colors[randomIndex]);
+    }
+    return randomColors;
+  };
+
   useEffect(() => {
-    const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
-    const randomCombination = () => {
-      const randomColors = [];
-
-      for (let i = 0; i < combinationLength; i++) {
-        const randomIndex = Math.floor(Math.random() * colors.length);
-        randomColors.push(colors[randomIndex]);
-      }
-      setMasterCombination(randomColors);
-    };
-
-    randomCombination();
-  }, [combinationLength]);
+    setMasterCombination(generateRandomCombination());
+  }, []);
 
   return (
     <div className="w-[80vw] bg-red-900 min-h-[3em] my-glow max-w-[500px] overflow-hidden relative rounded-3xl">
-      <CombinationCover />
+      <CombinationCover isVisible={isVisible} />
       <MasterCombination masterCombination={masterCombination} />
       <GuessContainer
         combinationLength={combinationLength}
@@ -143,7 +177,7 @@ export function Board({ combinationLength, maxAttempts }) {
         checkWhite={checkWhite}
       />
 
-      <ColorPicker onPick={handleColorPick} />
+      <ColorPicker reset={reset} onPick={handleColorPick} />
     </div>
   );
 }
