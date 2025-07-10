@@ -175,7 +175,7 @@ export function Board({
   }, []);
 
   return (
-    <div className="w-[80vw] bg-red-900 min-h-[3em] my-glow  py-8 overflow-hidden relative rounded-3xl">
+    <div className="w-[80vw] mt-5 bg-red-900 min-h-[3em] my-glow  py-8 overflow-hidden relative rounded-3xl">
       <Selector
         combinationLength={combinationLength}
         maxAttempts={maxAttempts}
