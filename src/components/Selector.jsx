@@ -6,7 +6,6 @@ export function Selector({
   setCombinationLength,
   setMaxAttempts,
   reset,
-
 }) {
   const [lengthInput, setLengthInput] = useState("");
   const [attemptsInput, setAttemptsInput] = useState("");
@@ -19,7 +18,7 @@ export function Selector({
 
   return (
     <>
-      <div className="fixed left-1/2 top-10 transform -translate-x-1/2  flex flex-col h-[12vh] w-[65%] bg-red-900  border-2 text-center z-5">
+      <div className="fixed left-1/2 top-10 transform -translate-x-1/2  flex flex-col h-[12vh] w-[25%]  bg-red-900  border-2 text-center z-5">
         <input
           value={lengthInput}
           onChange={(e) => setLengthInput(e.target.value)}
