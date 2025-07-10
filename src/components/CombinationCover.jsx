@@ -6,7 +6,7 @@ export function CombinationCover({ isVisible }) {
   return (
     <div
       style={{ fontFamily: "font" }}
-      className="rounded-tr-3xl rounded-tl-3xl  md:h-[25%]  bg-red-900  -blue-100 w-[100%] h-[18%] flex items-center justify-center text-xl absolute top-0 md:text-5xl"
+      className="rounded-tr-3xl rounded-tl-3xl   bg-red-900 h-[10vh] md:h-[15vh]  w-[100%] flex items-center justify-center text-xl absolute top-0 "
     >
       Mastermind
     </div>

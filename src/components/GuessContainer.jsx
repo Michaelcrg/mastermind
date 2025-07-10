@@ -9,14 +9,14 @@ export function GuessContainer({
   checkWhite,
 }) {
   return (
-    <div className="min-h-[2em] flex flex-col mb-15">
+    <div className="min-h-[2em] flex flex-col mb-15 px-5">
       {guesses.map((rowColors, index) => (
         <div key={index} className="flex flex-row items-center">
           <GuessChecker
             id={`checker-${index}`}
             attemptIndex={index}
             combinationLength={combinationLength}
-            setPegs={() => setPegs(guesses[index], index)}
+            setPegsHandler={() => setPegs(guesses[index], index)}
             checkBlack={
               checkBlack[index] ?? Array(combinationLength).fill(false)
             }

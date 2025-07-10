@@ -9,7 +9,6 @@ export function GuessRow({ id, combinationLength, colors, setPegs }) {
   useEffect(() => {
     const lastIndex = combinationLength - 1;
     if (colorsToShow[lastIndex] != null) {
-      console.log(colorsToShow[lastIndex]);
       setPegs();
     }
   }, [colorsToShow, combinationLength]);

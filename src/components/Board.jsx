@@ -3,8 +3,14 @@ import { ColorPicker } from "./ColorPicker.jsx";
 import { MasterCombination } from "./MasterCombination.jsx";
 import { GuessContainer } from "./GuessContainer.jsx";
 import { useState, useEffect, useCallback } from "react";
+import { Selector } from "./Selector.jsx";
 
-export function Board({ combinationLength, maxAttempts }) {
+export function Board({
+  combinationLength,
+  maxAttempts,
+  setCombinationLength,
+  setMaxAttempts,
+}) {
   const [rowIndex, setRowIndex] = useState(maxAttempts - 1);
   const [colorIndex, setColorIndex] = useState(0);
   const [guesses, setGuesses] = useState(
@@ -26,9 +32,11 @@ export function Board({ combinationLength, maxAttempts }) {
       .map(() => Array(combinationLength).fill(false))
   );
 
-  const [usedPegs, setUsedPegs] = useState(Array(combinationLength).fill(null));
+  const [usedPegs, setUsedPegs] = useState(
+    Array(combinationLength).fill(false)
+  );
   const [usedCombination, setUsedCombination] = useState(
-    Array(combinationLength).fill(null)
+    Array(combinationLength).fill(false)
   );
 
   const [isVisible, setIsVisible] = useState(true);
@@ -62,7 +70,7 @@ export function Board({ combinationLength, maxAttempts }) {
       checkWin(copyBlack[rowIndex]);
 
       for (let i = 0; i < combinationLength; i++) {
-        if (copyCombination[i] || copyPegs[i]) {
+        if (copyPegs[i]) {
           continue;
         }
 
@@ -98,6 +106,8 @@ export function Board({ combinationLength, maxAttempts }) {
 
   const reset = () => {
     console.log("reset");
+
+    setIsVisible(true);
     setMasterCombination(generateRandomCombination());
     setCheckBlack(
       Array(maxAttempts)
@@ -165,7 +175,14 @@ export function Board({ combinationLength, maxAttempts }) {
   }, []);
 
   return (
-    <div className="w-[80vw] bg-red-900 min-h-[3em] my-glow max-w-[500px] overflow-hidden relative rounded-3xl">
+    <div className="w-[80vw] bg-red-900 min-h-[3em] my-glow  py-8 overflow-hidden relative rounded-3xl">
+      <Selector
+        combinationLength={combinationLength}
+        maxAttempts={maxAttempts}
+        setCombinationLength={setCombinationLength}
+        setMaxAttempts={setMaxAttempts}
+        reset={reset}
+      />
       <CombinationCover isVisible={isVisible} />
       <MasterCombination masterCombination={masterCombination} />
       <GuessContainer
