@@ -17,6 +17,14 @@ export function Selector({
     }
   }, [combinationLength, maxAttempts]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isVisible]);
+
   return (
     <>
       {isVisible && (
