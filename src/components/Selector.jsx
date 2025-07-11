@@ -20,7 +20,7 @@ export function Selector({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 5000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [isVisible]);
@@ -30,26 +30,31 @@ export function Selector({
       {isVisible && (
         <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2  flex flex-col h-[12vh] w-[100%]  bg-red-900  border-2 text-center z-5">
           <input
+            min="1"
+            max="15"
             value={lengthInput}
-            onChange={(e) => setLengthInput(e.target.value)}
+            onChange={(e) => {
+              setLengthInput(e.target.value);
+            }}
             className="text-center"
-            type="text"
-            placeholder="Insert combination length(max 20)"
+            type="number"
+            placeholder="Insert combination (from 1 to 15)"
           />
 
           <input
+            min="1"
+            max="15"
             value={attemptsInput}
             onChange={(e) => setAttemptsInput(e.target.value)}
             className="text-center"
-            type="text"
-            placeholder="Insert maximum attempts(max 15)"
+            type="number"
+            placeholder="Insert attempts(from 1 to 15)"
           />
 
           <button
             onClick={() => {
-              const length = Number(lengthInput);
-              const attempts = Number(attemptsInput);
-              if (!(length > 0 && attempts > 0)) return;
+              const length = Math.max(1, Math.min(15, Number(lengthInput)));
+              const attempts = Math.max(1, Math.min(15, Number(attemptsInput)));
               setCombinationLength(length);
               setMaxAttempts(attempts);
               setLengthInput("");
