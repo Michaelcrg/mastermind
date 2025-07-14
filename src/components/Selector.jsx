@@ -15,7 +15,7 @@ export function Selector({
     if (combinationLength > 0 && maxAttempts > 0) {
       reset();
     }
-  }, [combinationLength, maxAttempts]);
+  }, [combinationLength, maxAttempts, reset]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
