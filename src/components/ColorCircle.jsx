@@ -4,7 +4,7 @@ export function ColorCircle({ id, color, onClick, size = 25 }) {
       id={id}
       onClick={onClick}
       style={{ backgroundColor: color, width: size, height: size }}
-      className="rounded-full size-5 -black "
+      className="rounded-full size-5 "
     ></div>
   );
 }

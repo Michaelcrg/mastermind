@@ -35,7 +35,7 @@ export function Board({
   const [endGame, setEndGame] = useState("");
 
   const colors = useMemo(
-    () => ["red", "green", "blue", "yellow", "purple", "orange"],
+    () => ["red", "green", "blue", "yellow", "purple", "gainsboro"],
     []
   );
 
@@ -160,10 +160,10 @@ export function Board({
 
   return (
     <>
-      <div className="w-[20%] absolute top-5 z-5 ">
+      <div className="w-[40%] flex justify-center absolute top-5 z-5 ">
         <MessageBox endGame={endGame} />
       </div>
-      <div className="w-[80vw] mt-5 bg-red-900 min-h-[3em] my-glow py-8 overflow-hidden relative rounded-3xl">
+      <div className="w-[80vw] mt-5 bg-red-900 min-h-[3em] my-glow py-8 overflow-hidden relative rounded-3xl ">
         <Selector
           combinationLength={combinationLength}
           maxAttempts={maxAttempts}

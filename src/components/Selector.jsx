@@ -20,7 +20,7 @@ export function Selector({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 10000);
+    }, 20000);
 
     return () => clearTimeout(timer);
   }, [isVisible]);
@@ -28,8 +28,9 @@ export function Selector({
   return (
     <>
       {isVisible && (
-        <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2  flex flex-col h-[12vh] w-[100%]  bg-red-900  border-2 text-center z-5">
+        <div className="absolute rounded-b-3xl left-1/2 bottom-0 transform -translate-x-1/2  flex flex-col h-[12vh] w-[100%]  bg-red-900  border-2 border-black text-center z-5">
           <input
+            translate="no"
             min="1"
             max="15"
             value={lengthInput}
@@ -42,6 +43,7 @@ export function Selector({
           />
 
           <input
+            translate="no"
             min="1"
             max="15"
             value={attemptsInput}
@@ -52,6 +54,7 @@ export function Selector({
           />
 
           <button
+            translate="no"
             onClick={() => {
               const length = Math.max(1, Math.min(15, Number(lengthInput)));
               const attempts = Math.max(1, Math.min(15, Number(attemptsInput)));
@@ -66,7 +69,7 @@ export function Selector({
           </button>
         </div>
       )}
-      <div className="absolute bottom-1 left-9.5 z-6">
+      <div className="absolute flex flex-row gap-y- bottom-1 left-9.5 z-6">
         <svg
           onClick={() => setIsVisible((prev) => !prev)}
           fill="#000000"

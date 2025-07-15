@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { ColorCircle } from "./ColorCircle";
 export function MasterCombination({ masterCombination }) {
   return (
