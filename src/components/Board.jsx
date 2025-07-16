@@ -111,7 +111,7 @@ export function Board({
 
   const handleColorPick = useCallback(
     (color) => {
-      if (guesses[0][combinationLength - 1] !== null) {
+      if (guesses[0].every((color) => color !== null)) {
         setEndGame("lose");
         setIsVisible(false);
         return;
@@ -124,14 +124,9 @@ export function Board({
         return newGuesses;
       });
 
-      if (colorIndex === combinationLength - 1) {
-        setRowIndex((prev) => Math.max(prev - 1, 0));
-        setColorIndex(0);
-      } else {
-        setColorIndex((i) => i + 1);
-      }
+      setColorIndex((i) => i + 1);
     },
-    [colorIndex, combinationLength, guesses, rowIndex]
+    [colorIndex, guesses, rowIndex]
   );
 
   const reset = useCallback(() => {
@@ -157,6 +152,14 @@ export function Board({
 
     setEndGame("");
   }, [combinationLength, maxAttempts, generateRandomCombination]);
+
+  useEffect(() => {
+    if (colorIndex === combinationLength) {
+      setPegs(guesses[rowIndex], rowIndex);
+      setRowIndex((prev) => Math.max(prev - 1, 0));
+      setColorIndex(0);
+    }
+  }, [colorIndex, combinationLength, guesses, rowIndex, setPegs]);
 
   return (
     <>

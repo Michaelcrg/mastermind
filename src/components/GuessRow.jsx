@@ -1,6 +1,6 @@
 import { ColorCircle } from "./ColorCircle";
-import { useEffect, useMemo } from "react";
-export function GuessRow({ id, combinationLength, colors, setPegs }) {
+import { useMemo } from "react";
+export function GuessRow({ id, combinationLength, colors }) {
   const colorsToShow = useMemo(
     () =>
       !colors || colors.length !== combinationLength
@@ -8,13 +8,6 @@ export function GuessRow({ id, combinationLength, colors, setPegs }) {
         : colors,
     [colors, combinationLength]
   );
-
-  useEffect(() => {
-    const lastIndex = combinationLength - 1;
-    if (colorsToShow[lastIndex] != null) {
-      setPegs();
-    }
-  }, [colorsToShow, combinationLength, setPegs]);
 
   return (
     <div
